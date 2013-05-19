@@ -1,5 +1,5 @@
 <?php 
-namespace Stubby\UrlShorteningServiceBundle\Entity;
+namespace Stubby\ShorteningServiceBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
