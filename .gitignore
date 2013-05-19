@@ -1,0 +1,18 @@
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+app/cache/*
+web/uploads/*
+web/bundles/*
+web/js/*
+web/css/*
+
+# Configuration files
+app/config/parameters.yml
+
+# Ignore DS Store and hidden files
+*.DS_Store
+*.swp
+*.out
+.idea

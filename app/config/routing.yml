@@ -1,0 +1,5 @@
+stubby_shortening_service:
+    resource: "@StubbyShorteningServiceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
