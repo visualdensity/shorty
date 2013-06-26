@@ -38,6 +38,10 @@ class ShortenController extends Controller
     {	
 		$em = $this->getDoctrine()->getManager();
 		
+        $query = $em->createQuery('SELECT u FROM StubbyShorteningServiceBundle:Url u');
+        $urls= $query->getResult();
+        print_r($urls);
+        die;
 		$itemsCount = count($em->getRepository('StubbyShorteningServiceBundle:Url')->findAll());
         $query = $em->createQuery( 'select u from StubbyShorteningServiceBundle:Url u' );
         $entities = $query->getResult();

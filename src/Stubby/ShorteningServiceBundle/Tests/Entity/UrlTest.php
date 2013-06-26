@@ -2,8 +2,10 @@
 namespace Stubby\ShorteningServiceBundle\Tests\Entity;
 
 use Stubby\ShorteningServiceBundle\Entity\Url;
+use Stubby\ShorteningServiceBundle\Entity\Click;
+use Stubby\ShorteningServiceBundle\Tests\DoctrineEnabledTestCase;
 
-class UrlTest extends \PHPUnit_Framework_TestCase
+class UrlTest extends DoctrineEnabledTestCase
 {
     protected $url;
 
