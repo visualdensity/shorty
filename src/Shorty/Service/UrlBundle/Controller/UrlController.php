@@ -1,6 +1,8 @@
 <?php
 namespace Shorty\Service\UrlBundle\Controller;
 
+use zircote\Hal;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +17,7 @@ use Shorty\Service\UrlBundle\Entity\Click;
 /**
  * @Route("/api/url")
  */
-class ShortenController extends Controller
+class UrlController extends Controller
 {
 	/**
 	 * Lists all Urls entities.
@@ -29,8 +31,7 @@ class ShortenController extends Controller
 		
         $query = $em->createQuery('SELECT u FROM ShortyServiceUrlBundle:Url u');
         $urls= $query->getResult();
-        print_r($urls);
-        die;
+
 		$itemsCount = count($em->getRepository('ShortyServiceUrlBundle:Url')->findAll());
         $query = $em->createQuery( 'select u from ShortyServiceUrlBundle:Url u' );
         $entities = $query->getResult();
