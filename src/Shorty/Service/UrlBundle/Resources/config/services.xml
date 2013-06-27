@@ -17,4 +17,16 @@
         </service>
     </services>
     -->
+
+    <parameters>
+        <parameter key="shorty.accept_header_listener.class">Shorty\Service\UrlBundle\EventListener\AcceptHeaderListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="shorty_service.accept_header_listener" class="%shorty.accept_header_listener.class%">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <argument>%accepted_headers%</argument>
+        </service>
+    </services>
+
 </container>

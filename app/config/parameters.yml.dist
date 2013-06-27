@@ -3,14 +3,19 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: stubby
+    database_name: shorty_test
     database_user: root
     database_password: root
+
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
+
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
+
     base_href: 'http://stubby.wk.com'
     allowed_chars: 0a1b2c3d4e5f6g7h8i9jklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+    accepted_headers: ['json', 'xml']
