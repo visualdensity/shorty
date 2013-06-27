@@ -2,6 +2,7 @@
 namespace Shorty\Service\UrlBundle\Controller;
 
 use Nocarrier\Hal;
+use Shorty\Service\UrlBundle\Controller\ServiceAppController;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\AcceptHeader;
@@ -17,7 +18,7 @@ use Shorty\Service\UrlBundle\Entity\Click;
 /**
  * @Route("/api/url")
  */
-class UrlController extends Controller
+class UrlController extends ServiceAppController
 {
 
 	/**
@@ -59,7 +60,7 @@ class UrlController extends Controller
         }
 
         return array(
-            'result'  => $hal->asJson(),
+            'result'  => static::getResult($hal),
         );
     }
 
