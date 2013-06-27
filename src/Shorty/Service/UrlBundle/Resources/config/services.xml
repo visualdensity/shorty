@@ -20,12 +20,16 @@
 
     <parameters>
         <parameter key="shorty.accept_header_listener.class">Shorty\Service\UrlBundle\EventListener\AcceptHeaderListener</parameter>
+        <parameter key="shorty.integer_to_string_translator.class">Shorty\Service\UrlBundle\Library\IntegerToStringTranslator</parameter>
     </parameters>
 
     <services>
-        <service id="shorty_service.accept_header_listener" class="%shorty.accept_header_listener.class%">
+        <service id="shorty.accept_header_listener" class="%shorty.accept_header_listener.class%">
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             <argument>%accepted_headers%</argument>
+        </service>
+        <service id="shorty.url_encoder" class="%shorty.integer_to_string_translator.class%">
+            <argument>%allowed_chars%</argument>
         </service>
     </services>
 

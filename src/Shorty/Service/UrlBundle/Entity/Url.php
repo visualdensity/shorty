@@ -1,7 +1,6 @@
 <?php 
 namespace Shorty\Service\UrlBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,7 +38,7 @@ class Url
     /**
      * @var string $short_url
      *
-     * @ORM\Column(name="short_url", type="string", length=255)
+     * @ORM\Column(name="short_url", type="string", length=255, nullable=true)
      */
     private $short_url;
 
@@ -53,26 +52,16 @@ class Url
     /**
      * @var string $creator
      *
-     * @ORM\Column(name="creator", type="string", length=64)
+     * @ORM\Column(name="creator", type="string", length=64, nullable=true)
      */
     private $creator;
 
     /**
      * @var integer $hits
      *
-     * @ORM\Column(name="hits", type="integer")
+     * @ORM\Column(name="hits", type="integer", nullable=true)
      */
     private $hits;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Click", mappedBy="url")
-     */
-    protected $clicks;
-
-    public function __construct()
-    {
-        $this->clicks = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -203,25 +192,4 @@ class Url
     {
         return $this->hits;
     }
-
-    /**
-     * Add click
-     *
-     * @param \Stubby\ShorteningServiceBundle\Entity\Click $clicks
-     */
-    public function addClick(\Stubby\ShorteningServiceBundle\Entity\Click $click)
-    {
-        $this->clicks[] = $click;
-    }
-
-    /**
-     * Get clicks
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getClicks()
-    {
-        return $this->clicks;
-    }
-
 }
