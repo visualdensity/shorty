@@ -2,6 +2,7 @@
 namespace Shorty\Service\UrlBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Shorty\Service\UrlBundle\Entity\AbstractEntity;
 
 /**
  * Shorty\Service\UrlBundle\Entity\Url
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="urls")
  * @ORM\Entity(repositoryClass="Shorty\Service\UrlBundle\Repository\UrlRepository")
  */
-class Url
+class Url extends AbstractEntity
 {
 
     /**
@@ -19,7 +20,7 @@ class Url
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $checksum
@@ -33,21 +34,21 @@ class Url
      *
      * @ORM\Column(name="long_url", type="string", length=255)
      */
-    private $long_url;
+    protected $long_url;
 
     /**
      * @var string $short_url
      *
      * @ORM\Column(name="short_url", type="string", length=255, nullable=true)
      */
-    private $short_url;
+    protected $short_url;
 
     /**
      * @var datetime $created
      *
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var string $creator
@@ -61,7 +62,7 @@ class Url
      *
      * @ORM\Column(name="hits", type="integer", nullable=true)
      */
-    private $hits;
+    protected $hits;
 
     /**
      * Get id

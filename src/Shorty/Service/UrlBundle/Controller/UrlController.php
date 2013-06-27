@@ -28,9 +28,9 @@ class UrlController extends Controller
      * @Template()
 	 */
 	public function listAction(Request $request)
-    {	
+    {
 		$em = $this->getDoctrine()->getManager();
-		
+
         $query = $em->createQuery('SELECT u FROM ShortyServiceUrlBundle:Url u');
         $urls= $query->getResult();
 
@@ -38,17 +38,33 @@ class UrlController extends Controller
         $query = $em->createQuery( 'select u from ShortyServiceUrlBundle:Url u' );
         $urls = $query->getResult();
 
-        print_r($urls);
-        die;
+        $rootData = array(
+            'totalRecords' => count($urls)
+        );
+
+        $hal = new Hal(
+            $this->generateUrl('url_list'),
+            $rootData
+        );
+
+        foreach($urls as $u) {
+            $resource = new Hal(
+                $this->generateUrl('url_view', array('id'=>$u->getId()) ),
+                $u->toArray()
+            );
+
+            $resource->addLink('shortened', $this->container->getParameter('base_href') . '/' . $u->getShortUrl());
+
+            $hal->addResource('url', $resource);
+        }
 
         return array(
-            'entities'  => $urls,
-            'base_href' => $this->container->getParameter('base_href'),
+            'result'  => $hal->asJson(),
         );
     }
 
 	/**
-     * Create a new URL 
+     * Create a new URL
      *
 	 * @Route("/{id}", name="url_view")
      * @Method("GET")
@@ -63,26 +79,19 @@ class UrlController extends Controller
             return new Response('', 404);
         }
 
-        $data = array(
-            'long_url'  => $url->getLongUrl(),
-            'short_url' => $this->container->getParameter('base_href') . '/' . $url->getShortUrl(),
-            'created'   => $url->getCreated()->format('Y-m-d H:i:s')
-        );
-
         $hal = new Hal(
             $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
-            $data
+            $url->toArray()
         );
-
         $hal->addLink('shortened', $this->container->getParameter('base_href') . '/' . $url->getShortUrl());
 
-        return array( 
+        return array(
             'result' => $hal->asJson()
         );
     }
 
 	/**
-     * Create a new URL 
+     * Create a new URL
      *
 	 * @Route("/", name="url_create")
      * @Method("PUT|POST")
@@ -106,17 +115,10 @@ class UrlController extends Controller
         $url->setShortUrl( $encoder->encode($url->getId()) );
         $em->flush();
 
-        $data = array(
-            'long_url'  => $url->getLongUrl(),
-            'short_url' => $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
-            'created'   => $url->getCreated()->format('Y-m-d H:i:s')
-        );
-
         $hal = new Hal(
             $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
-            $data
+            $url->toArray()
         );
-
         $hal->addLink('shortened', $this->container->getParameter('base_href') . '/' . $url->getShortUrl());
 
         return array(
