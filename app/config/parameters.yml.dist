@@ -7,6 +7,13 @@ parameters:
     database_user: root
     database_password: root
 
+    test.database_driver: pdo_mysql
+    test.database_host: 127.0.0.1
+    test.database_port: null
+    test.database_name: shorty_test
+    test.database_user: root
+    test.database_password: root
+
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
