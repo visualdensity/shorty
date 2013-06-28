@@ -7,7 +7,8 @@ use Shorty\Service\UrlBundle\Entity\AbstractEntity;
 /**
  * Shorty\Service\UrlBundle\Entity\Url
  *
- * @ORM\Table(name="urls")
+ * @ORM\Entity
+ * @ORM\Table(name="urls", indexes={@ORM\Index(name="checksum_search_idx", columns={"checksum"})})
  * @ORM\Entity(repositoryClass="Shorty\Service\UrlBundle\Repository\UrlRepository")
  */
 class Url extends AbstractEntity
@@ -24,7 +25,7 @@ class Url extends AbstractEntity
 
     /**
      * @var string $checksum
-     *
+     * 
      * @ORM\Column(name="checksum", type="string", length=255, nullable=true)
      */
     protected $checksum;
