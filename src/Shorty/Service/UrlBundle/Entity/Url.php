@@ -27,7 +27,7 @@ class Url extends AbstractEntity
      *
      * @ORM\Column(name="checksum", type="string", length=255, nullable=true)
      */
-    private $checksum;
+    protected $checksum;
 
     /**
      * @var string $long_url

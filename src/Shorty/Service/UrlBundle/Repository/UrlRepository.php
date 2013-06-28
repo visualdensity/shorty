@@ -8,11 +8,11 @@ class UrlRepository extends EntityRepository
 {
     public function urlExists($url)
     {
-        $q = $this->_em->createQuery('SELECT u FROM ScooponUrlShortenerBundle:Url where u.long_url = :url');
+        $q = $this->_em->createQuery('SELECT u FROM ShortyServiceUrlBundle:Url where u.checksum = :checksum');
         $q->setParameters( array(
-            'url' => $url
+            'checksum' => md5($url)
         ));
 
-        $url = $q->getResults();
+        return $url = $q->getResult();
     }
 }//UrlRepository

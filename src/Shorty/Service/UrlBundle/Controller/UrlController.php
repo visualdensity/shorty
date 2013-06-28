@@ -103,18 +103,27 @@ class UrlController extends ServiceAppController
         $encoder = $this->get('shorty.url_encoder');
         $longUrl = $request->query->get('url');
 
-        $url = new Url();
-        $url->setLongUrl( $longUrl );
-        $url->setHits(0);
-        $url->setCreated( new \DateTime );
-
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($url);
-        $em->flush();
+        $urlCheck = $em->getRepository('ShortyServiceUrlBundle:Url')
+                        ->findByChecksum( md5($longUrl) );
 
-        $url->setShortUrl( $encoder->encode($url->getId()) );
-        $em->flush();
+        if( !$urlCheck ) {
+            $url = new Url();
+            $url->setChecksum( md5($longUrl) );
+            $url->setLongUrl( $longUrl );
+            $url->setHits(0);
+            $url->setCreated( new \DateTime );
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($url);
+            $em->flush();
+
+            $url->setShortUrl( $encoder->encode($url->getId()) );
+            $em->flush();
+        } else {
+            $url = $urlCheck[0];
+        }
 
         $hal = new Hal(
             $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
