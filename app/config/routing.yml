@@ -2,4 +2,3 @@ shorty_service_url:
     resource: "@ShortyServiceUrlBundle/Controller/"
     type:     annotation
     prefix:   /
-

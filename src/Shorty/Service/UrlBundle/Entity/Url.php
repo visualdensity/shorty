@@ -8,7 +8,7 @@ use Shorty\Service\UrlBundle\Entity\AbstractEntity;
  * Shorty\Service\UrlBundle\Entity\Url
  *
  * @ORM\Entity
- * @ORM\Table(name="urls", indexes={@ORM\Index(name="checksum_search_idx", columns={"checksum"})})
+ * @ORM\Table(name="urls", indexes={@ORM\Index(name="url_search_idx", columns={"checksum", "short_url"})})
  * @ORM\Entity(repositoryClass="Shorty\Service\UrlBundle\Repository\UrlRepository")
  */
 class Url extends AbstractEntity
