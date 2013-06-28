@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Shorty\Service\UrlBundle\Entity\Url;
+use Shorty\Service\UrlBundle\Entity\Click;
 
 class DefaultController extends ServiceAppController
 {

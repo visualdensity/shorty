@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Shorty\Service\UrlBundle\Entity\Click
  *
- * @ORM\Table(name="clicks")
  * @ORM\Entity
+ * @ORM\Table(name="clicks")
  */
 class Click
 {
@@ -49,7 +49,6 @@ class Click
      */
     private $referer_domain;
 
-
     /**
      * @var string $user_agent
      *
@@ -86,7 +85,7 @@ class Click
     private $platform_version;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Url", inversedBy="clicks")
+     * @ORM\ManyToOne(targetEntity="Url")
      * @ORM\JoinColumn(name="url_id", referencedColumnName="id")
      */
     protected $url;

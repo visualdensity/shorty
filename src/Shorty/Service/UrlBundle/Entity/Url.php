@@ -103,6 +103,7 @@ class Url extends AbstractEntity
     public function setLongUrl($longUrl)
     {
         $this->long_url = $longUrl;
+        static::setChecksum( md5($longUrl) );
     }
 
     /**

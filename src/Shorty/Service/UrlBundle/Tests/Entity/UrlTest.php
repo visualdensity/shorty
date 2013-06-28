@@ -29,7 +29,6 @@ class UrlTest extends DoctrineEnabledTestCase
         self::assertObjectHasAttribute('created',   $this->url);
         self::assertObjectHasAttribute('creator',   $this->url);
         self::assertObjectHasAttribute('hits',      $this->url);
-        self::assertObjectHasAttribute('clicks',    $this->url);
     }
 
     public function testGettersSetters()
@@ -46,5 +45,26 @@ class UrlTest extends DoctrineEnabledTestCase
         $this->assertTrue( method_exists($this->url, 'setCreator') );
         $this->assertTrue( method_exists($this->url, 'setHits') );
         $this->assertTrue( method_exists($this->url, 'getHits') );
+    }
+
+    public function testSave() 
+    {
+        $testUrl = 'http://google.com';
+
+        $url = new Url();
+        $url->setLongUrl( $testUrl );
+        $url->setCreated( new \Datetime );
+        $url->setHits( 0 );
+
+        $this->em->persist($url);
+        $this->em->flush();
+
+        $this->assertInstanceOf( 'Shorty\Service\UrlBundle\Entity\Url', $url );
+
+        $this->assertInternalType('integer', $url->getId() );
+        $this->assertEquals( $testUrl, $url->getLongUrl() );
+        $this->assertEquals( md5($testUrl), $url->getChecksum() );
+        $this->assertInstanceOf( 'Datetime', $url->getCreated() );
+        $this->assertInternalType('integer', $url->getHits() );
     }
 }//UrlTest
