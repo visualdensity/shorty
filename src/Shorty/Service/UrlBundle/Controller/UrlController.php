@@ -5,6 +5,7 @@ use Nocarrier\Hal;
 use Shorty\Service\UrlBundle\Controller\ServiceAppController;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\AcceptHeader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -68,7 +69,7 @@ class UrlController extends ServiceAppController
     }
 
 	/**
-     * Create a new URL
+     * View URL
      *
 	 * @Route("/{id}", name="url_view")
      * @Method("GET")
