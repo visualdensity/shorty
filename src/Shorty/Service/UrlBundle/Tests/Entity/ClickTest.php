@@ -57,4 +57,37 @@ class ClickTest extends DoctrineEnabledTestCase
         $this->assertTrue( method_exists($this->click, 'setUrl') );
         $this->assertTrue( method_exists($this->click, 'getUrl') );
     }
+
+    public function testSave() 
+    {
+        $testUrl = 'http://google.com';
+
+        $url = new Url();
+        $url->setLongUrl( $testUrl );
+        $url->setCreated( new \Datetime );
+        $url->setHits( 0 );
+
+        $this->em->persist($url);
+        $this->em->flush();
+
+        $click = new Click();
+        $click->setCreated( new \Datetime );
+        $click->setIp('127.0.0.1');
+        $click->setReferer('string');
+        $click->setUserAgent('string');
+        $click->setBrowser('string');
+        $click->setBrowserVersion('string');
+        $click->setPlatform('string');
+        $click->setPlatformVersion('string');
+        $click->setUrl($url);
+
+        $this->em->persist($click);
+        $this->em->flush();
+
+        $this->assertInstanceOf('\Shorty\Service\UrlBundle\Entity\Click', $click);
+        $this->assertInstanceOf('\Shorty\Service\UrlBundle\Entity\Url', $click->getUrl());
+
+        $this->assertInstanceOf('\Datetime', $click->getCreated());
+        $this->assertEquals('127.0.0.1', $click->getIp());
+    }
 }//UrlTest

@@ -284,7 +284,7 @@ class Click
     /**
      * Get url
      *
-     * @return Stubby\ShorteningServiceBundle\Entity\Url 
+     * @return Shorty\Service\UrlBundle\Entity\Url 
      */
     public function getUrl()
     {
@@ -294,9 +294,9 @@ class Click
     /**
      * Set url
      *
-     * @param Stubby\ShorteningServiceBundle\Entity\Url $url
+     * @param Shorty\Service\UrlBundle\Entity\Url $url
      */
-    public function setUrl(Stubby\ShorteningServiceBundle\Entity\Url $url)
+    public function setUrl(\Shorty\Service\UrlBundle\Entity\Url $url)
     {
         $this->url = $url;
     }
