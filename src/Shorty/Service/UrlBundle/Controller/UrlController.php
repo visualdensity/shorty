@@ -54,7 +54,10 @@ class UrlController extends ServiceAppController
                 $u->toArray()
             );
 
-            $resource->addLink('shortened', $this->container->getParameter('base_href') . '/' . $u->getShortUrl());
+            $resource->addLink(
+                'shortened', 
+                $this->container->getParameter('base_href') . $this->generateUrl('redirect',  array('short_url' => $u->getShortUrl() ) )
+            );
 
             $hal->addResource('url', $resource);
         }
@@ -84,7 +87,11 @@ class UrlController extends ServiceAppController
             $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
             $url->toArray()
         );
-        $hal->addLink('shortened', $this->container->getParameter('base_href') . '/' . $url->getShortUrl());
+
+        $hal->addLink(
+            'shortened', 
+            $this->container->getParameter('base_href') . $this->generateUrl('redirect',  array('short_url' => $url->getShortUrl() ) )
+        );
 
         return array(
             'result' => $hal->asJson()
@@ -129,7 +136,11 @@ class UrlController extends ServiceAppController
             $this->generateUrl( 'url_view', array('id' => $url->getId()) ),
             $url->toArray()
         );
-        $hal->addLink('shortened', $this->container->getParameter('base_href') . '/' . $url->getShortUrl());
+
+        $hal->addLink(
+            'shortened', 
+            $this->container->getParameter('base_href') . $this->generateUrl('redirect',  array('short_url' => $url->getShortUrl() ) )
+        );
 
         return array(
             'result' => $hal->asJson()

@@ -12,26 +12,47 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Shorty\Service\UrlBundle\Entity\Url;
 use Shorty\Service\UrlBundle\Entity\Click;
 
+/**
+ * @Route("/")
+ */
 class DefaultController extends ServiceAppController
 {
 
 	/**
 	 * Lists all Urls entities.
      *
-	 * @Route("/{shortUrl}", name="redirect")
+	 * @Route("/{short_url}", name="redirect")
      * @Method("GET")
 	 */
-	public function listAction($shortUrl)
+	public function redirectAction(Request $request, $short_url)
     {
-        $url = $this->getDoctrine()
-                    ->getRepository('ShortyServiceUrlBundle:Url')
-                    ->findBy( 
-                        array('short_url' => $shortUrl )
+        $em  = $this->getDoctrine()->getManager();
+        $res = $em->getRepository('ShortyServiceUrlBundle:Url')
+                  ->findBy( 
+                        array('short_url' => $short_url )
                     );
-
-        if( !$url) {
+        if( !isset($res[0]) ) {
             return new Response('', 404);
+        } else {
+            $url = $res[0];
         }
-        return $this->redirect( $url[0]->getLongUrl() );
+
+        $url->setHits( $url->getHits() + 1 );
+        $em->persist($url);
+        $em->flush();
+
+        $server  = $request->createFromGlobals()->server;
+
+        $click = new Click();
+        $click->setCreated( new \Datetime );
+        $click->setIp($request->getClientIp());
+        $click->setReferer($server->get('HTTP_REFERER'));
+        $click->setUserAgent($server->get('HTTP_USER_AGENT'));
+        $click->setUrl($url);
+
+        $em->persist($click);
+        $em->flush();
+
+        return $this->redirect( $url->getLongUrl() );
     }
 }
